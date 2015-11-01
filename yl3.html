@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+<span id="forecast"></span><br><br>
+
+
+Please insert the city: <br>
+<input type="text" id="city" placeholder="City"/>
+<br>
+<button onclick="get_forecast()">Submit</button>
+
+
+<script>
+
+    function get_forecast() {
+        var city = $("#city").val();
+        $.get(
+                "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=metric&APPID=551ddbdd7740915860c9c1094bcc47c0",
+                function (data) {
+                    //console.log(data.weather[0].description);
+                    var weather_forecast = data.weather[0].description;
+
+                    $("#forecast").html(weather_forecast);
+                }
+        );
+    }
+
+
+</script>
+
+</body>
+</html>
