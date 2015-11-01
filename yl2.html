@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<head>
+    <link rel="stylesheet" type="text/css"
+          href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" charset="utf8"
+            src="https://cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
+    <style>
+
+        tfoot {
+            display: table-header-group;
+        }
+    </style>
+
+</head>
+<body>
+<table id="table1" border="2px">
+    <thead>
+    <tr>
+        <th>Eesnimi</th>
+        <th>Eriala</th>
+        <th>Vanus (a)</th>
+        <th>Pikkus (cm)</th>
+        <th>Kaal (kg)</th>
+    </tr>
+    </thead>
+    <tfoot>
+    <tr>
+        <th>Eesnimi</th>
+        <th>Eriala</th>
+        <th>Vanus (a)</th>
+        <th>Pikkus (cm)</th>
+        <th>Kaal (kg)</th>
+    </tr>
+    </tfoot>
+
+    <tbody>
+    <tr>
+        <td>Kati</td>
+        <td>Ettekandja</td>
+        <td>22</td>
+        <td>175</td>
+        <td>65</td>
+    </tr>
+    <tr>
+        <td>Marta</td>
+        <td>Tisler</td>
+        <td>32</td>
+        <td>167</td>
+        <td>72</td>
+    </tr>
+    <tr>
+        <td>Robert</td>
+        <td>Tudeng</td>
+        <td>18</td>
+        <td>194</td>
+        <td>74</td>
+    </tr>
+    <tr>
+        <td>Kristo</td>
+        <td>Taksojuht</td>
+        <td>65</td>
+        <td>172</td>
+        <td>95</td>
+    </tr>
+    <tr>
+        <td>Tormi</td>
+        <td>Juuksur</td>
+        <td>45</td>
+        <td>155</td>
+        <td>46</td>
+    </tr>
+    </tbody>
+</table>
+<script>
+
+    $(document).ready(function () {
+        $('tfoot th').each(function () {
+            var title = $('thead th').eq($(this).index()).text();
+            $(this).html('<input type="text" placeholder="Otsi ' + title + '" />');
+        });
+
+        var table = $('#table1').DataTable();
+
+        table.columns().every(function () {
+            var that = this;
+            $('input', this.footer()).on('keyup change', function () {
+                if (that.search() !== this.value) {
+                    that.search(this.value).draw();
+                }//if lõpp
+            });//on lõpp
+        });//every lõpp
+    });//ready lõpp
+</script>
+</body>
+</html>
