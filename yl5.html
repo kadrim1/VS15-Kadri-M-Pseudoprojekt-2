@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Speak like Master Yoda</title>
+</head>
+<script type='text/javascript' src='http://code.jquery.com/jquery-1.11.3.min.js'></script>
+
+<body>
+<script>
+    var value = '';
+    apiKey = 'ldwCID7HEkmshjxd532GIuVdWVn9p1yzg8XjsnX5LsIQhmgkXD';
+    // var answer='';
+    function answer_view(yodaAnser) {
+        $('#response').append('<p><strong>Yoda saying:</strong><em>' + yodaAnser + '</em></p>');
+    }
+
+    function sendRequest(text) {
+        $.ajax({
+            url: 'https://yoda.p.mashape.com/yoda?sentence=' + text, // The URL to the API. You can get this in the API page of the API you intend to consume
+            type: 'GET', // The HTTP Method, can be GET POST PUT DELETE etc
+            data: {}, // Additional parameters here
+            dataType: 'json',
+            success: function (data) {
+            },
+            complete: function (data) {
+                // alert(data.responseText);
+                // answer=data.responseText;
+                answer_view(data.responseText);
+            },
+            error: function (err) {
+                // alert("SOME ERROR!? - "+err);
+
+            },
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("X-Mashape-Authorization", apiKey); // Enter here your Mashape key
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        $('#btn').click(function () {
+            value = $("#textToYoda").val();
+            //$('body').append('<p>' + value + '</p>');
+            sendRequest(value);
+        });
+
+    });
+
+
+</script>
+<h2>Some text for Yoda API: </h2>
+<textarea rows="4" cols="50" id="textToYoda">
+</textarea>
+<br>
+<button id="btn">TRANSLATE to Yoda accent</button>
+<br>
+<br>
+
+<div id="response"></div>
+</body>
+</html>
